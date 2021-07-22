@@ -193,27 +193,10 @@ if(VCPKG_TARGET_IS_ANDROID)
     string(REPLACE "--enable-asm" "" OPTIONS ${OPTIONS})
     string(REPLACE "--enable-x86asm" "" OPTIONS ${OPTIONS})
 
-    set(ANDROID_CPU "")
-
-    if(VCPKG_TARGET_ARCHITECTURE STREQUAL "arm")
-        set(ANDROID_CPU "armv7-a")
-    elseif(VCPKG_TARGET_ARCHITECTURE STREQUAL "arm64")
-        set(ANDROID_CPU "armv8-a")
-    elseif(VCPKG_TARGET_ARCHITECTURE STREQUAL "x86")
-        set(ANDROID_CPU "x86")
-    elseif(VCPKG_TARGET_ARCHITECTURE STREQUAL "x64")
-        set(ANDROID_CPU "x86-64")
-    endif()
-
-    set(ANDROID_API 21) # default ANDROID_API 21
-    if($ENV{ANDROID_API})
-        set(ANDROID_API $ENV{ANDROID_API})
-    endif()
-
-    if($ENV{ANDROID_PLATFORM})
-        set(ANDROID_PLATFORM $ENV{ANDROID_PLATFORM})
+    if(VCPKG_CMAKE_SYSTEM_VERSION)
+        set(CMAKE_SYSTEM_VERSION ${VCPKG_CMAKE_SYSTEM_VERSION})
     else()
-        set(ANDROID_PLATFORM ${ANDROID_API})
+        set(CMAKE_SYSTEM_VERSION 21) # set default android api version.
     endif()
 
     set(VCPKG_TARGET_TRIPLET ${TARGET_TRIPLET})
@@ -223,7 +206,7 @@ if(VCPKG_TARGET_IS_ANDROID)
     include("${VCPKG_CHAINLOAD_TOOLCHAIN_FILE}")
 
     set(ANDROID_CLFLAGS "\'-fpic --target=${CMAKE_CXX_COMPILER_TARGET}\'")
-    set(OPTIONS_CROSS " --enable-cross-compile --cross-prefix=${ANDROID_TOOLCHAIN_PREFIX} --arch=${VCPKG_TARGET_ARCHITECTURE} --cpu=${ANDROID_CPU} --sysroot=${CMAKE_SYSROOT} --cc=${ANDROID_C_COMPILER} --cxx=${ANDROID_CXX_COMPILER} --target-os=android --extra-cflags=${ANDROID_CLFLAGS} --extra-ldflags=${ANDROID_CLFLAGS}")
+    set(OPTIONS_CROSS " --enable-cross-compile --cross-prefix=${ANDROID_TOOLCHAIN_PREFIX} --arch=${VCPKG_TARGET_ARCHITECTURE} --sysroot=${CMAKE_SYSROOT} --cc=${ANDROID_C_COMPILER} --cxx=${ANDROID_CXX_COMPILER} --target-os=android --extra-cflags=${ANDROID_CLFLAGS} --extra-ldflags=${ANDROID_CLFLAGS}")
 endif()
 
 if(VCPKG_TARGET_IS_WINDOWS)
