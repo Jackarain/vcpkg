@@ -96,12 +96,12 @@
     "boost-local-function",
     {
       "name": "boost-locale",
-      "platform": "!uwp"
+      "platform": "!uwp & !android"
     },
     "boost-lockfree",
     {
       "name": "boost-log",
-      "platform": "!uwp & !emscripten"
+      "platform": "!uwp & !emscripten & !android"
     },
     "boost-logic",
     "boost-math",
@@ -113,7 +113,10 @@
     "boost-multi-array",
     "boost-multi-index",
     "boost-multiprecision",
-    "boost-nowide",
+    {
+      "name": "boost-nowide",
+      "platform": "!android"
+    },
     "boost-numeric-conversion",
     "boost-numeric-conversion",
     "boost-odeint",
@@ -123,7 +126,7 @@
     "boost-parameter",
     {
       "name": "boost-parameter-python",
-      "platform": "!emscripten"
+      "platform": "!emscripten & !android"
     },
     "boost-pfr",
     "boost-phoenix",
@@ -143,7 +146,7 @@
     "boost-ptr-container",
     {
       "name": "boost-python",
-      "platform": "!uwp & !(arm & windows) & !emscripten"
+      "platform": "!uwp & !(arm & windows) & !emscripten & !android"
     },
     "boost-qvm",
     "boost-random",
